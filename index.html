@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #2a2a2a; /* Dark background */
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 360px;
+            height: 640px; /* 9:16 aspect ratio */
+            background-color: #1e1e1e; /* Darker container background */
+            border-radius: 15px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+        }
+
+        .left-panel {
+            width: 35%;
+            background-color: #333; /* Slightly lighter dark background */
+            border-right: 2px solid #444;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .left-panel button {
+            width: 100%;
+            padding: 15px;
+            background-color: #444;
+            border: 2px solid #00aaff; /* Cooler blue color */
+            border-radius: 10px;
+            color: #00aaff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .left-panel button:hover {
+            background-color: #00aaff;
+            color: #fff;
+        }
+
+        .right-panel {
+            width: 65%;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background-color: #333;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .menu-item span {
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 34px;
+            height: 20px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #666; /* Gray background for slider */
+            transition: 0.4s;
+            border-radius: 20px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background-color: #ffffff;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #00aaff; /* Cooler blue when active */
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(14px);
+        }
+
+        .speed-control {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .speed-slider {
+            width: 80%;
+            margin-left: 10px;
+            accent-color: #00aaff; /* Cooler blue accent color */
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 12px;
+        }
+
+        .footer .status {
+            color: #00aaff; /* Cooler blue for status */
+            font-weight: bold;
+        }
+
+        .footer a {
+            color: #00aaff; /* Cooler blue for links */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* New toggle switch for ON/OFF */
+        .toggle-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #666; /* Gray background for toggle */
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            border-radius: 50%;
+            left: 4px;
+            bottom: 4px;
+            background-color: #ffffff;
+            transition: .4s;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #00aaff; /* Cooler blue when active */
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="left-panel">
+            <button id="toggleButton">JUST PLAY FF</button>
+        </div>
+        <div class="right-panel">
+            <div class="menu-item">
+                <span>AIMLOCK🎯</span>
+                <label class="switch">
+                    <input type="checkbox" id="aimlock">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="menu-item">
+                <span>AIMBOT💀</span>
+                <label class="switch">
+                    <input type="checkbox" id="aimbot">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="menu-item">
+                <span>REGEDIT V2</span>
+                <label class="switch">
+                    <input type="checkbox" id="regedit">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="menu-item">
+                <span>SCOPE HEAD</span>
+                <label class="switch">
+                    <input type="checkbox" id="scopeHead">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="menu-item">
+                <span>AIMLOCK PC</span>
+                <label class="switch">
+                    <input type="checkbox" id="aimlockPC">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="menu-item">
+                <span>FAKE LOCK</span>
+                <label class="switch">
+                    <input type="checkbox" id="fakeLock">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="menu-item">
+                <span>SHOT HEAD</span>
+                <label class="switch">
+                    <input type="checkbox" id="shotHead">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="menu-item">
+                <span>BYPASS ANTICHEAT</span>
+                <label class="switch">
+                    <input type="checkbox" id="bypassAnticheat">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="menu-item">
+                <span>AIMBOT FIX</span>
+                <label class="switch">
+                    <input type="checkbox" id="aimbotFix">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="speed-control">
+                <span>HEADSHOT VALUE</span>
+                <input type="range" min="0" max="10" value="0" class="speed-slider" id="headshotValue">
+                <span id="sliderValue">0</span>
+            </div>
+            <div class="toggle-container">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="noBanIOS">
+                    <span class="toggle-slider"></span>
+                </label>
+                <span id="toggleStatus">ON</span>
+            </div>
+            <div class="footer">
+                <p>Status: <span class="status" id="footerStatus">ON</span></p>
+                <p>DEVICE : IOS</p>
+                <p>VERSION : 1.2</p>
+                <p>Installed JUST PLAY FFPANEL FREE. SUBSCRIBE TO THE CHANNEL 👉 <a href="https://youtube.com/@just
